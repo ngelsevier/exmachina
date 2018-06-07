@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class TuringService {
+public class FoolMeService {
 
     public String requestAnswerFor(String question) throws IOException {
         StringBuffer answer = new StringBuffer();
