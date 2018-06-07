@@ -13,7 +13,7 @@ public class RequestController {
             "  Question: <input type=\"text\" name=\"question\" size=\"80\">" +
             "  <br/>" +
             "  <br/>" +
-            "  Answer: <input type=\"text\" name=\"answer\" readonly>" +
+            "  Answer: <input type=\"text\" name=\"answer\" size=\\\"100\\\" readonly>" +
             "  <br/>" +
             "  <br/>" +
             "  <input type=\"submit\" value=\"Submit\">" +
@@ -32,10 +32,10 @@ public class RequestController {
     String handleRequest(@RequestParam String question) {
         String homePageAnswer = "<html>" +
                 "<form method=\"post\" action=\"/\">" +
-                "  Question: <input type=\"text\" name=\"question\" value=\"%s\">" +
+                "  Question: <input type=\"text\" name=\"question\" value=\"%s\" size=\"80\">" +
                 "  <br/>" +
                 "  <br/>" +
-                "  Answer: <input type=\"text\" name=\"answer\" value=\"%s\" size=\"80\" readonly>" +
+                "  Answer: <input type=\"text\" name=\"answer\" value=\"%s\" size=\"100\" readonly>" +
                 "  <br/>" +
                 "  <br/>" +
                 "  <input type=\"submit\" value=\"Submit\">" +
