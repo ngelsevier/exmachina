@@ -48,7 +48,7 @@ public class RequestResponseController {
         if (!answerMode) {
             return String.format(homePage, "", "readonly");
         } else {
-            return String.format(homePage, "Question about : " + context, "");
+            return null;
         }
     }
 
