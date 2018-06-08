@@ -12,11 +12,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import static java.lang.Math.round;
+import java.util.stream.Collectors;
 
 @Service
 public class FoolMeService {
@@ -49,7 +48,7 @@ public class FoolMeService {
         String baseUrlWithContext;
         String answer;
 
-        baseUrlWithContext = buildUrlFrom(baseUrl, question);
+        baseUrlWithContext = buildUrlFrom(baseUrl, question.split(" "));
 
         if (baseUrlWithContext == null) {
             return "Thats a great question, but I don't have an answer to it!";
@@ -84,7 +83,7 @@ public class FoolMeService {
         return answer;
     }
 
-    private String getResponseFromUser(HttpClient client, HttpGet request) throws IOException {
+    String getResponseFromUser(HttpClient client, HttpGet request) throws IOException {
         StringBuffer answer = new StringBuffer();
         HttpResponse response = client.execute(request);
         BufferedReader rd = new BufferedReader
@@ -100,27 +99,29 @@ public class FoolMeService {
         return answer.toString();
     }
 
-    private String buildUrlFrom(String baseUrl, String question) {
+    String buildUrlFrom(String baseUrl, String[] wordsToMatch) {
         String baseUrlWithContext = null;
+        List<String> words = Arrays.asList(wordsToMatch).stream().map(String::toLowerCase).collect(Collectors.toList());
 
-        if (question.toLowerCase().contains("name")) {
+        if (words.contains("name")) {
             baseUrlWithContext = String.format(baseUrl, "name");
-        } else if (question.toLowerCase().contains("evise")) {
+        } else if (words.contains("evise")) {
             baseUrlWithContext = String.format(baseUrl, "Evise");
-        } else if (question.toLowerCase().contains("weather")) {
+        } else if (words.contains("weather")) {
             baseUrlWithContext = String.format(baseUrl, "weather");
-        } else if (question.toLowerCase().contains("who") && question.toLowerCase().contains("annoying")) {
+        } else if (words.contains("who") && words.contains("annoying")) {
             baseUrlWithContext = String.format(baseUrl, "annoying_response");
-        } else if (question.toLowerCase().contains("what") && question.toLowerCase().contains("drink")) {
+        } else if (words.contains("what") && words.contains("drink")) {
             baseUrlWithContext = String.format(baseUrl, "favedrink_response");
-        } else if (question.toLowerCase().contains("where") && question.toLowerCase().contains("live")) {
+        } else if (words.contains("where") && words.contains("live")) {
             baseUrlWithContext = String.format(baseUrl, "live_response");
-        } else if (question.toLowerCase().contains("who") && question.toLowerCase().contains("you")) {
+        } else if (words.contains("who") && words.contains("you")) {
             baseUrlWithContext = String.format(baseUrl, "whoareyou_response");
-        } else if (question.toLowerCase().contains("hi")) {
+        } else if (words.contains("hi")) {
             baseUrlWithContext = String.format(baseUrl, "hi_response");
         }
 
         return baseUrlWithContext;
     }
+
 }

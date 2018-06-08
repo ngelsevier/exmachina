@@ -25,7 +25,7 @@ public class RequestResponseController {
             "</html>";
 
     @Autowired
-    private FoolMeService turingService;
+    private FoolMeService foolMeService;
 
     @Value("${answer.mode}")
     private boolean answerMode;
@@ -72,7 +72,7 @@ public class RequestResponseController {
             return String.format(homePage, "Awaiting question... ", "");
         }
 
-        String response = turingService.requestResponseFor(question);
+        String response = foolMeService.requestResponseFor(question);
         return String.format(homePageAnswer, question, response);
     }
 
