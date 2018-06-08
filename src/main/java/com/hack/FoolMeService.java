@@ -65,8 +65,12 @@ public class FoolMeService {
 
             while (StringUtils.isEmpty(answer) && System.currentTimeMillis() < expiryTime) {
                 String responseUrl = String.format(baseUrl, "response/poll");
-                Thread.sleep(500);
+                Thread.sleep(1000);
                 answer = getResponseFromUser(client, new HttpGet(responseUrl));
+            }
+
+            while (System.currentTimeMillis() < expiryTime) {
+                Thread.sleep(1000);
             }
 
         } catch (Exception e) {
@@ -105,6 +109,16 @@ public class FoolMeService {
             baseUrlWithContext = String.format(baseUrl, "Evise");
         } else if (question.toLowerCase().contains("weather")) {
             baseUrlWithContext = String.format(baseUrl, "weather");
+        } else if (question.toLowerCase().contains("who") && question.toLowerCase().contains("annoying")) {
+            baseUrlWithContext = String.format(baseUrl, "annoying_response");
+        } else if (question.toLowerCase().contains("what") && question.toLowerCase().contains("drink")) {
+            baseUrlWithContext = String.format(baseUrl, "favedrink_response");
+        } else if (question.toLowerCase().contains("where") && question.toLowerCase().contains("live")) {
+            baseUrlWithContext = String.format(baseUrl, "live_response");
+        } else if (question.toLowerCase().contains("who") && question.toLowerCase().contains("you")) {
+            baseUrlWithContext = String.format(baseUrl, "whoareyou_response");
+        } else if (question.toLowerCase().contains("hi")) {
+            baseUrlWithContext = String.format(baseUrl, "hi_response");
         }
 
         return baseUrlWithContext;
